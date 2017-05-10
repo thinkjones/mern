@@ -87,6 +87,13 @@ const mainChartOpts = {
 
 class MainChart extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            chartView: 'day'
+        };
+    }
+
     componentDidMount() {
         axios.get(`api/charts/activity`)
             .then(res => {
@@ -104,6 +111,11 @@ class MainChart extends Component {
         return true;
     }
 
+    onChartZoom(event, zoomLevel) {
+        this.setState({chartView: zoomLevel});
+        event.preventDefault();
+    };
+
     render() {
         return (
             <div className="card">
@@ -119,13 +131,16 @@ class MainChart extends Component {
                             <div className="btn-toolbar float-right" role="toolbar"
                                  aria-label="Toolbar with button groups">
                                 <div className="btn-group mr-3" data-toggle="buttons" aria-label="First group">
-                                    <label className={"btn btn-outline-secondary " + (this.props.chartView === 'day' ? 'active' : '')}>
+                                    <label onClick={(event) => this.onChartZoom(event, 'day')}
+                                           className={"btn btn-outline-secondary " + (this.state.chartView === 'day' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option1"/> Day
                                     </label>
-                                    <label className={"btn btn-outline-secondary " + (this.props.chartView === 'month' ? 'active' : '')}>
+                                    <label onClick={(event) => this.onChartZoom(event, 'month')}
+                                           className={"btn btn-outline-secondary " + (this.state.chartView === 'month' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option2" defaultChecked/> Month
                                     </label>
-                                    <label className={"btn btn-outline-secondary " + (this.props.chartView === 'year' ? 'active' : '')}>
+                                    <label onClick={(event) => this.onChartZoom(event, 'year')}
+                                           className={"btn btn-outline-secondary " + (this.state.chartView === 'year' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option3"/> Year
                                     </label>
                                 </div>
@@ -171,8 +186,5 @@ class MainChart extends Component {
     }
 }
 
-MainChart.defaultProps = {
-    chartView:'day'
-};
 
 export default MainChart;

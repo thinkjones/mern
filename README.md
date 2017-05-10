@@ -8,6 +8,10 @@ MONGO - EXPRESS - REACT - NODE
 * Display Victory Chart
 
 
+Notes:
+
+* package.json needed if importing a directory aka `import Users from './views/Users/'`
+
 
 # BACKGROUND ON CREATE-REACT
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

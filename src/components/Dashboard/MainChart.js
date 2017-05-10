@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Progress } from 'reactstrap';
+import axios from 'axios';
 
 const brandSuccess =  '#4dbd74';
 const brandInfo =     '#63c2de';
@@ -19,21 +20,10 @@ function convertHex(hex,opacity) {
     return result;
 }
 
-//Random Numbers
-function random(min,max) {
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
-
 var elements = 27;
 var data1 = [];
 var data2 = [];
 var data3 = [];
-
-for (var i = 0; i <= elements; i++) {
-    data1.push(random(50,200));
-    data2.push(random(80,100));
-    data3.push(65);
-}
 
 const mainChart = {
     labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -97,6 +87,24 @@ const mainChartOpts = {
 }
 
 class MainChart extends Component {
+
+    componentDidMount() {
+        axios.get(`api/charts/activity`)
+            .then(res => {
+                mainChart.datasets[0].data = res.data.data1;
+                mainChart.datasets[1].data = res.data.data2;
+                mainChart.datasets[2].data = res.data.data3;
+                this.setState(() => {
+                    console.log('setting state');
+                    return { unseen: "does not display" }
+                });
+            });
+    }
+
+    shouldComponentUpdate(nextProps) {
+        return true;
+    }
+
     render() {
         return (
             <div className="card">

@@ -20,7 +20,6 @@ function convertHex(hex,opacity) {
     return result;
 }
 
-var elements = 27;
 var data1 = [];
 var data2 = [];
 var data3 = [];
@@ -120,13 +119,13 @@ class MainChart extends Component {
                             <div className="btn-toolbar float-right" role="toolbar"
                                  aria-label="Toolbar with button groups">
                                 <div className="btn-group mr-3" data-toggle="buttons" aria-label="First group">
-                                    <label className="btn btn-outline-secondary">
+                                    <label className={"btn btn-outline-secondary " + (this.props.chartView === 'day' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option1"/> Day
                                     </label>
-                                    <label className="btn btn-outline-secondary active">
+                                    <label className={"btn btn-outline-secondary " + (this.props.chartView === 'month' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option2" defaultChecked/> Month
                                     </label>
-                                    <label className="btn btn-outline-secondary">
+                                    <label className={"btn btn-outline-secondary " + (this.props.chartView === 'year' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option3"/> Year
                                     </label>
                                 </div>
@@ -171,5 +170,9 @@ class MainChart extends Component {
         )
     }
 }
+
+MainChart.defaultProps = {
+    chartView:'day'
+};
 
 export default MainChart;

@@ -20,7 +20,6 @@ function convertHex(hex,opacity) {
     return result;
 }
 
-var elements = 27;
 var data1 = [];
 var data2 = [];
 var data3 = [];
@@ -88,8 +87,19 @@ const mainChartOpts = {
 
 class MainChart extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            chartView: 'day'
+        };
+    }
+
     componentDidMount() {
-        axios.get(`api/charts/activity`)
+        this.refreshData(1);
+    }
+
+    refreshData(multiplier) {
+        axios.get(`api/charts/activity/` + multiplier)
             .then(res => {
                 mainChart.datasets[0].data = res.data.data1;
                 mainChart.datasets[1].data = res.data.data2;
@@ -104,6 +114,23 @@ class MainChart extends Component {
     shouldComponentUpdate(nextProps) {
         return true;
     }
+
+    onChartZoom(event, zoomLevel) {
+        this.setState({chartView: zoomLevel});
+
+        var multiplierMeta = {
+            'day': 1,
+            'month': 4,
+            'year': 12
+        };
+
+        var multiplier = multiplierMeta[zoomLevel] || 1;
+        mainChartOpts.scales.yAxes[0].ticks.max = (250 * multiplier);
+        mainChartOpts.scales.yAxes[0].ticks.stepSize = Math.ceil(250 / 5) * multiplier;
+        this.refreshData(multiplier);
+
+        event.preventDefault();
+    };
 
     render() {
         return (
@@ -120,13 +147,16 @@ class MainChart extends Component {
                             <div className="btn-toolbar float-right" role="toolbar"
                                  aria-label="Toolbar with button groups">
                                 <div className="btn-group mr-3" data-toggle="buttons" aria-label="First group">
-                                    <label className="btn btn-outline-secondary">
+                                    <label onClick={(event) => this.onChartZoom(event, 'day')}
+                                           className={"btn btn-outline-secondary " + (this.state.chartView === 'day' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option1"/> Day
                                     </label>
-                                    <label className="btn btn-outline-secondary active">
+                                    <label onClick={(event) => this.onChartZoom(event, 'month')}
+                                           className={"btn btn-outline-secondary " + (this.state.chartView === 'month' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option2" defaultChecked/> Month
                                     </label>
-                                    <label className="btn btn-outline-secondary">
+                                    <label onClick={(event) => this.onChartZoom(event, 'year')}
+                                           className={"btn btn-outline-secondary " + (this.state.chartView === 'year' ? 'active' : '')}>
                                         <input type="radio" name="options" id="option3"/> Year
                                     </label>
                                 </div>

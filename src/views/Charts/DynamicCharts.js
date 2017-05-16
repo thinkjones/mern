@@ -3,22 +3,38 @@ import {Bar} from 'react-chartjs-2';
 import axios from 'axios';
 
 
-const bar = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-        {
-            label: 'My First dataset',
-            backgroundColor: 'rgba(255,99,132,0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1,
-            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-            hoverBorderColor: 'rgba(255,99,132,1)',
-            data: [65, 59, 80, 81, 56, 55, 40]
-        }
-    ]
-};
-
 class GeneChart extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            bar: {
+                labels: props.labels,
+                datasets: [
+                    {
+                        label: props.chartName,
+                        backgroundColor: 'rgba(255,99,132,0.2)',
+                        borderColor: 'rgba(255,99,132,1)',
+                        borderWidth: 1,
+                        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                        hoverBorderColor: 'rgba(255,99,132,1)',
+                        data: props.data
+                    }
+                ]
+            }
+        };
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        this.setState(() => {
+            var datasets = nextState.bar.datasets;
+            datasets[0].data = nextProps.data;
+            return { bar: {datasets: datasets}};
+        });
+        return true;
+    }
+
     render() {
         return (
             <genechart className="card">
@@ -32,7 +48,7 @@ class GeneChart extends Component {
                 </div>
                 <div className="card-block">
                     <div className="chart-wrapper">
-                        <Bar data={bar}
+                        <Bar data={this.state.bar}
                              options={{
                                  maintainAspectRatio: false
                              }}
@@ -74,10 +90,19 @@ class DynamicCharts extends Component {
     render() {
         return (
             <div className="animated fadeIn">
-                <span>{JSON.stringify(this.state.charts)}</span>
+                <h1>Prop Vs State</h1>
+                <div>
+                    Interesting article on Props vs State was interesting in how these two components interact
+                    <a href="https://github.com/uberVU/react-guide/blob/master/props-vs-state.md">Github props-vs-state</a>
+                </div>
+
+                <button type="button" className="btn btn-primary"
+                        onClick={(event) => this.refreshData()}>Refresh Charts</button>
+
+
                 {this.state.charts.map((item, idx) =>
                     <div className="card-columns cols-2" key={idx}>
-                        <GeneChart key={idx} />
+                        <GeneChart key={idx} chartName={item.label} data={item.data} labels={this.state.labels} />
                     </div>
                 )}
             </div>

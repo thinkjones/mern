@@ -20,10 +20,6 @@ function convertHex(hex,opacity) {
     return result;
 }
 
-<<<<<<< HEAD
-=======
-var elements = 27;
->>>>>>> develop
 var data1 = [];
 var data2 = [];
 var data3 = [];

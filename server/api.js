@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express()
+var _ = require('lodash')
 
 //Random Numbers
 function random(min,max) {
@@ -26,6 +27,32 @@ app.get('/api/charts/activity/:multiplier', function (req, res) {
     }
     res.json({data1: data1, data2: data2, data3: data3, multiplier: multiplier});
 });
+
+app.get('/api/charts/dynamic/:totalCharts', function (req, res) {
+
+    var labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    var seriesTemplate = {
+        label: 'Dataset',
+        data: []
+    };
+
+    var chartData = [];
+
+    var totalCharts = parseInt(req.params.totalCharts || 5);
+
+    for (var j = 0 ; j < totalCharts ; j++) {
+        var multiplier = j + 1;
+        var thisSeries = _.cloneDeep(seriesTemplate);
+        thisSeries.label = seriesTemplate.label + ' ' + (j+1);
+        for (var i = 0 ; i < 7 ; i++) {
+            console.log(random(0,100));
+            thisSeries.data.push(random(0, 100 * multiplier));
+        }
+        chartData.push(thisSeries);
+    }
+    res.json({labels: labels, data: chartData, totalCharts: totalCharts});
+});
+
 
 app.listen(4000, function () {
     console.log('Example app listening on port 4000!')

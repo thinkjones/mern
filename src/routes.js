@@ -5,7 +5,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Full from './containers/Full/'
 import Simple from './containers/Simple/'
 
-import Charts from './views/Charts/'
+import Charts from './views/Charts/Charts'
+import DynamicCharts from './views/Charts/DynamicCharts'
 import Dashboard from './views/Dashboard/'
 import Users from './views/Users/'
 import Settings from './views/Settings/'
@@ -49,7 +50,11 @@ export default (
         <Route path="simple-line-icons" name="Simple Line Icons" component={SimpleLineIcons}/>
       </Route>
       <Route path="widgets" name="Widgets" component={Widgets}/>
-      <Route path="charts" name="Charts" component={Charts}/>
+      <Route path="charts/" name="Charts">
+        <IndexRoute component={FontAwesome}/>
+        <Route path="main" name="Main" component={Charts}/>
+        <Route path="dynamic" name="Dynamic" component={DynamicCharts}/>
+      </Route>
     </Route>
     <Route path="pages/" name="Pages" component={Simple}>
       <IndexRoute component={Page404}/>

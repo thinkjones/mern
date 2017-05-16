@@ -71,8 +71,16 @@ class Sidebar extends Component {
             <li className="nav-item">
               <Link to={'/widgets'} className="nav-link" activeClassName="active"><i className="icon-calculator"></i> Widgets <span className="badge badge-info">NEW</span></Link>
             </li>
-            <li className="nav-item">
-              <Link to={'/charts'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Charts</Link>
+            <li className={this.activeRoute("/charts")}>
+              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-star"></i> Charts</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <Link to={'/charts/main'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Main</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/charts/dynamic'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Dynamic</Link>
+                </li>
+              </ul>
             </li>
             <li className="divider"></li>
             <li className="nav-title">

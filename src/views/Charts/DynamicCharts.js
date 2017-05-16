@@ -48,7 +48,9 @@ class DynamicCharts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalCharts: 6
+            totalCharts: 6,
+            charts: [],
+            labels: []
         };
     }
 
@@ -60,7 +62,7 @@ class DynamicCharts extends Component {
         axios.get(`api/charts/dynamic/` + this.state.totalCharts)
             .then(res => {
                 this.setState(() => {
-                    return {charts: res.data}
+                    return {charts: res.data.data, labels: res.data.labels}
                 });
             });
     }
@@ -73,9 +75,11 @@ class DynamicCharts extends Component {
         return (
             <div className="animated fadeIn">
                 <span>{JSON.stringify(this.state.charts)}</span>
-                <div className="card-columns cols-2">
-                    <GeneChart />
-                </div>
+                {this.state.charts.map((item, idx) =>
+                    <div className="card-columns cols-2" key={idx}>
+                        <GeneChart key={idx} />
+                    </div>
+                )}
             </div>
         )
     }

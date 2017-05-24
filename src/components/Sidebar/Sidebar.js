@@ -80,6 +80,9 @@ class Sidebar extends Component {
                 <li className="nav-item">
                   <Link to={'/charts/dynamic'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Dynamic</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to={'/charts/victory'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Victory</Link>
+                </li>
               </ul>
             </li>
             <li className="divider"></li>

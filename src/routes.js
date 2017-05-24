@@ -7,6 +7,7 @@ import Simple from './containers/Simple/'
 
 import Charts from './views/Charts/Charts'
 import DynamicCharts from './views/Charts/DynamicCharts'
+import VictoryExampleCharts from './views/Charts/VictoryCharts'
 import Dashboard from './views/Dashboard/'
 import Users from './views/Users/'
 import Settings from './views/Settings/'
@@ -54,6 +55,8 @@ export default (
         <IndexRoute component={FontAwesome}/>
         <Route path="main" name="Main" component={Charts}/>
         <Route path="dynamic" name="Dynamic" component={DynamicCharts}/>
+        <Route path="victory" name="Victory" component={VictoryExampleCharts}/>
+
       </Route>
     </Route>
     <Route path="pages/" name="Pages" component={Simple}>

@@ -2,6 +2,10 @@ var express = require('express')
 var app = express()
 var _ = require('lodash')
 
+var expressLogging = require('express-logging');
+var logger = require('logops');
+app.use(expressLogging(logger, {}));
+
 //Random Numbers
 function random(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);

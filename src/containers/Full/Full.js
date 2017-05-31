@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/';
 
 import Breadcrumbs from 'react-breadcrumbs';
 import {connect} from 'react-redux';
+import { manualLogin, logout } from '../../actions/auth';
 
 class Full extends Component {
     componentDidMount() {
@@ -15,14 +16,15 @@ class Full extends Component {
         return true;
     }
 
-    login() {
-        this.setState(() => {
-        });
+    login(event) {
+        event.preventDefault();
+        const { manualLogin } = this.props;
+        manualLogin({email: 'test@acme.com', password: 'asd'});
     }
 
-    logout() {
-        this.setState(() => {
-        });
+    logout(event) {
+        const { logout } = this.props;
+        logout();
     }
 
     render() {
@@ -35,9 +37,9 @@ class Full extends Component {
                     <main className="main">
                         <div>
                             Is Logged In: {auth.authenticated.toString()}
-                            <button type="button" onClick={(event) => this.login()} className="btn btn-primary">Login
+                            <button type="button" onClick={(event) => this.login(event)} className="btn btn-primary">Login
                             </button>
-                            <button type="button" onClick={(event) => this.logout()} className="btn btn-secondary">
+                            <button type="button" onClick={(event) => this.logout(event)} className="btn btn-secondary">
                                 Logout
                             </button>
                         </div>
@@ -67,4 +69,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Full);
+export default connect(mapStateToProps,{ manualLogin, logout })(Full);

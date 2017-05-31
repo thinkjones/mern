@@ -72,11 +72,11 @@ export function manualLogin(data) {
 }
 
 
-export function logOut() {
+export function logout() {
     return (dispatch) => {
         dispatch(beginLogout());
 
-        return authService().logOut()
+        return authService().logout()
             .then((response) => {
                 dispatch(logoutSuccess());
                 dispatch(push('/auth/login'));

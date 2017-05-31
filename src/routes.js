@@ -33,7 +33,7 @@ import Widgets from './views/Widgets/'
 
 const Root = ({store, history}) => (
     <Provider store={store}>
-        <Router history={hashHistory}>
+        <Router history={history}>
             <Route path="/" name="Home" component={Full}>
                 <IndexRoute component={Dashboard}/>
                 <Route path="dashboard" name="Dashboard" component={Dashboard}/>

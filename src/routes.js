@@ -1,5 +1,8 @@
 import React from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import {Router, Route, IndexRoute} from 'react-router';
+import PropTypes from 'prop-types'
+import { Provider } from 'react-redux'
+
 
 // Containers
 import Full from './containers/Full/'
@@ -27,44 +30,60 @@ import Page404 from './views/Pages/Page404/'
 import Page500 from './views/Pages/Page500/'
 import Widgets from './views/Widgets/'
 
-export default (
-  <Router history={hashHistory}>
-    <Route path="/" name="Home" component={Full}>
-      <IndexRoute component={Dashboard}/>
-      <Route path="dashboard" name="Dashboard" component={Dashboard}/>
-      <Route path="users" name="Users" component={Users}/>
-      <Route path="settings" name="Settings" component={Settings}/>
-      <Route path="components/" name="Components">
-        <IndexRoute component={Buttons}/>
-        <Route path="buttons" name="Buttons" component={Buttons}/>
-        <Route path="cards" name="Cards" component={Cards}/>
-        <Route path="forms" name="Forms" component={Forms}/>
-        <Route path="modals" name="Modals" component={Modals}/>
-        <Route path="social-buttons" name="Social Buttons" component={SocialButtons}/>
-        <Route path="switches" name="Swithces" component={Switches}/>
-        <Route path="tables" name="Tables" component={Tables}/>
-        <Route path="tabs" name="Tabs" component={Tabs}/>
-      </Route>
-      <Route path="icons/" name="Icons">
-        <IndexRoute component={FontAwesome}/>
-        <Route path="font-awesome" name="Font Awesome" component={FontAwesome}/>
-        <Route path="simple-line-icons" name="Simple Line Icons" component={SimpleLineIcons}/>
-      </Route>
-      <Route path="widgets" name="Widgets" component={Widgets}/>
-      <Route path="charts/" name="Charts">
-        <IndexRoute component={FontAwesome}/>
-        <Route path="main" name="Main" component={Charts}/>
-        <Route path="dynamic" name="Dynamic" component={DynamicCharts}/>
-        <Route path="victory" name="Victory" component={VictoryExampleCharts}/>
 
-      </Route>
-    </Route>
-    <Route path="pages/" name="Pages" component={Simple}>
-      <IndexRoute component={Page404}/>
-      <Route path="login" name="Login Page" component={Login}/>
-      <Route path="register" name="Register Page" component={Register}/>
-      <Route path="404" name="Page 404" component={Page404}/>
-      <Route path="500" name="Page 500" component={Page500}/>
-    </Route>
-  </Router>
-);
+const Root = ({store, history}) => (
+    <Provider store={store}>
+        <Router history={history}>
+            <Route path="/" name="Home" component={Full}>
+                <IndexRoute component={Dashboard}/>
+                <Route path="dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="users" name="Users" component={Users}/>
+                <Route path="settings" name="Settings" component={Settings}/>
+                <Route path="components/" name="Components">
+                    <IndexRoute component={Buttons}/>
+                    <Route path="buttons" name="Buttons" component={Buttons}/>
+                    <Route path="cards" name="Cards" component={Cards}/>
+                    <Route path="forms" name="Forms" component={Forms}/>
+                    <Route path="modals" name="Modals" component={Modals}/>
+                    <Route path="social-buttons" name="Social Buttons" component={SocialButtons}/>
+                    <Route path="switches" name="Swithces" component={Switches}/>
+                    <Route path="tables" name="Tables" component={Tables}/>
+                    <Route path="tabs" name="Tabs" component={Tabs}/>
+                </Route>
+                <Route path="icons/" name="Icons">
+                    <IndexRoute component={FontAwesome}/>
+                    <Route path="font-awesome" name="Font Awesome" component={FontAwesome}/>
+                    <Route path="simple-line-icons" name="Simple Line Icons" component={SimpleLineIcons}/>
+                </Route>
+                <Route path="widgets" name="Widgets" component={Widgets}/>
+                <Route path="charts/" name="Charts">
+                    <IndexRoute component={FontAwesome}/>
+                    <Route path="main" name="Main" component={Charts}/>
+                    <Route path="dynamic" name="Dynamic" component={DynamicCharts}/>
+                    <Route path="victory" name="Victory" component={VictoryExampleCharts}/>
+
+                </Route>
+            </Route>
+
+            <Route path="auth/" name="Pages" component={Simple}>
+                <IndexRoute component={Page404}/>
+                <Route path="login" name="Login Page" component={Login}/>
+                <Route path="register" name="Register Page" component={Register}/>
+            </Route>
+
+            <Route path="oops/" name="Pages" component={Simple}>
+                <IndexRoute component={Page404}/>
+                <Route path="404" name="Page 404" component={Page404}/>
+                <Route path="500" name="Page 500" component={Page500}/>
+            </Route>
+
+        </Router>
+    </Provider>
+)
+
+Root.propTypes = {
+    store: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+}
+
+export default Root

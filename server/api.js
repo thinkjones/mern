@@ -6,6 +6,13 @@ var expressLogging = require('express-logging');
 var logger = require('logops');
 app.use(expressLogging(logger, {}));
 
+const LOGGED_IN_USER = {
+    id: 1234,
+    email: 'test@acme.com'
+};
+
+var user = false;
+
 //Random Numbers
 function random(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -57,6 +64,19 @@ app.get('/api/charts/dynamic/:totalCharts', function (req, res) {
     res.json({labels: labels, data: chartData, totalCharts: totalCharts});
 });
 
+app.get('/api/auth', function (req, res) {
+    res.json(user);
+})
+
+app.post('/api/auth/login', function (req, res) {
+    user = _.cloneDeep(LOGGED_IN_USER);
+    res.json(user);
+})
+
+app.post('/api/auth/logout', function (req, res) {
+    user = false;
+    res.json(user);
+})
 
 app.listen(4000, function () {
     console.log('Example app listening on port 4000!')

@@ -21,11 +21,15 @@ Using GeneComponent for chart we examine how to dynamically generate this chart 
 to the child.  This raised several important issues about Props & State which is a common theme for React app, especially
 for newbies.  Props are Immutable, State changes with the application. [PR](https://github.com/thinkjones/mern/commit/457c95aea260988b2edcae22d65888c059a30fa5)
 
+## Added Client And Server Auth (Also Added Redux)
+* Used https://github.com/reactGo/reactGo/tree/master/app for Inspiration
+* Implemented Redux in the app
+* Responded to auth object changes in state by routing to login / logout screens.
+* Added fake server login / logout
+
 ## TODO
-* Add Client Auth
-* Add Server Auth
 * Display Victory Chart
-* Pub/Sub
+* Pub/Sub (Maybe not needed)
 
 # Starting App
 Starts the client build and server api.  Running concurrently.

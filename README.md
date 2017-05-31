@@ -35,6 +35,12 @@ Starts the client build and server api.  Running concurrently.
 * package.json needed if importing a directory aka `import Users from './views/Users/'`
 * Bootstrap utilised with [reactstrap](https://reactstrap.github.io/)
 
+# React Questions
+* How best to implement PubSub?
+* How to show-hide components based on logged in status?
+* How to intercept navigation when not logged in?
+* How to best poll for current authentication?
+* What is Redux?
 
 # BACKGROUND ON CREATE-REACT
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

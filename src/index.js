@@ -1,8 +1,12 @@
-import React from 'react';
+import React from 'react'
 import ReactDOM from 'react-dom';
-import { Router, hashHistory } from 'react-router';
-import routes from './routes';
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+import globalStore from './services/GlobalStore'
+import Root from './routes'
+
+const history = syncHistoryWithStore(browserHistory, globalStore)
 
 ReactDOM.render(
-  <Router routes={routes} history={hashHistory} />, document.getElementById('root')
+  <Root store={globalStore} history={history} />, document.getElementById('root')
 );

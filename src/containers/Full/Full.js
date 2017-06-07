@@ -23,9 +23,6 @@ class Full extends Component {
                 <div className="app-body">
                     <Sidebar {...this.props}/>
                     <main className="main">
-                        <div>
-                            Is Logged In: {auth.authenticated.toString()}
-                        </div>
                         <Breadcrumbs
                             wrapperElement="ol"
                             wrapperClass="breadcrumb"

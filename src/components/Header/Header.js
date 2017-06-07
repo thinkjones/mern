@@ -58,13 +58,13 @@ class Header extends Component {
                            href="#">&#9776;</a>
                     </li>
                     <li className="nav-item px-3">
-                        <a className="nav-link" href="#">Dashboard</a>
+                        <a className="nav-link" href="/">Dashboard</a>
                     </li>
                     <li className="nav-item px-3">
-                        <a className="nav-link" href="#Users">Users</a>
+                        <a className="nav-link" href="users">Users</a>
                     </li>
                     <li className="nav-item px-3">
-                        <a className="nav-link" href="#Settings">Settings</a>
+                        <a className="nav-link" href="settings">Settings</a>
                     </li>
                 </ul>
                 <ul className="nav navbar-nav ml-auto">
